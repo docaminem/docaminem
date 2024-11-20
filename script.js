@@ -1,99 +1,94 @@
-// Fonction pour calculer les calories quotidiennes
-function calculateCalories() {
-    const weight = document.getElementById('weight').value;
-    const bmr = 88.362 + (13.397 * weight) + (4.799 * 180) - (5.677 * 41);
-    const tdee = bmr * 1.2;
-    const caloriesToLoseWeight = tdee - 500;
-    document.getElementById('caloriesResult').innerText = `Vous devez consommer environ ${caloriesToLoseWeight.toFixed(0)} kcal par jour pour perdre du poids.`;
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+
+function showSection(sectionId) {
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+    document.getElementById(sectionId).classList.add('active');
+
+    const navButtons = document.querySelectorAll('.nav-button');
+    navButtons.forEach(button => {
+        button.classList.remove('active');
+    });
+    document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
 }
 
-// Fonction pour afficher le programme de musculation
-function displayWorkoutPlan() {
-    const workoutPlan = `
-        <h3>Lundi (Poitrine et Triceps)</h3>
-        <div class="exercise"><input type="checkbox" id="ex1"> Développé couché : 4 séries de 8-12 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex2"> Écarté couché : 3 séries de 10-12 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex3"> Pompes : 3 séries de 10-15 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex4"> Dips : 3 séries de 10-15 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex5"> Extension des triceps : 3 séries de 10-12 répétitions</div>
-        <h3>Mercredi (Dos et Biceps)</h3>
-        <div class="exercise"><input type="checkbox" id="ex6"> Tirage horizontal : 4 séries de 8-12 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex7"> Tirage vertical : 3 séries de 10-12 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex8"> Rameur : 3 séries de 10-12 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex9"> Curl biceps : 3 séries de 10-12 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex10"> Curl marteau : 3 séries de 10-12 répétitions</div>
-        <h3>Vendredi (Épaules et Abdominaux)</h3>
-        <div class="exercise"><input type="checkbox" id="ex11"> Développé militaire : 4 séries de 8-12 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex12"> Élévations latérales : 3 séries de 10-12 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex13"> Élévations frontales : 3 séries de 10-12 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex14"> Élévations arrière : 3 séries de 10-12 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex15"> Shrugs : 3 séries de 10-12 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex16"> Crunch : 3 séries de 15-20 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex17"> Planche : 3 séries de 30-60 secondes</div>
-        <div class="exercise"><input type="checkbox" id="ex18"> Leg raises : 3 séries de 15-20 répétitions</div>
-        <div class="exercise"><input type="checkbox" id="ex19"> Russian twists : 3 séries de 15-20 répétitions</div>
+function changeMonth(direction) {
+    currentMonth += direction;
+    if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    } else if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    }
+    updateCalendar();
+}
+
+function updateCalendar() {
+    const calendarBody = document.querySelector('.calendar-body');
+    calendarBody.innerHTML = '';
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+
+    for (let i = 0; i < firstDay; i++) {
+        calendarBody.innerHTML += '<div></div>';
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+        calendarBody.innerHTML += `<div>${day}</div>`;
+    }
+
+    document.getElementById('current-month-year').innerText = new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long', year: 'numeric' });
+}
+
+function adjustWeight(change) {
+    const currentWeightElement = document.getElementById('current-weight');
+    let currentWeight = parseFloat(currentWeightElement.innerText);
+    currentWeight += change;
+    currentWeightElement.innerText = `${currentWeight} kg`;
+}
+
+function addWorkout() {
+    const workoutList = document.querySelector('.workout-list');
+    const newWorkout = document.createElement('div');
+    newWorkout.classList.add('workout-item');
+    newWorkout.innerHTML = `
+        <input type="checkbox">
+        <span>Nouvel exercice</span>
+        <button onclick="startRestTimer()">Démarrer le chrono de repos</button>
     `;
-    document.getElementById('workoutPlan').innerHTML = workoutPlan;
+    workoutList.appendChild(newWorkout);
 }
 
-// Fonction pour afficher le programme de nutrition
-function displayNutritionPlan() {
-    const nutritionPlan = `
-        <h3>Lundi</h3>
-        <p><strong>Petit-déjeuner :</strong> 2 œufs, 1 tranche de pain complet, 1 banane, 1 yaourt nature</p>
-        <p><strong>Déjeuner :</strong> 150g de poulet grillé, 100g de couscous, 100g de carottes râpées, 1 cuillère à soupe d'huile d'olive</p>
-        <p><strong>Collation :</strong> 1 pomme, 10 amandes</p>
-        <h3>Mardi</h3>
-        <p><strong>Petit-déjeuner :</strong> 1 bol de flocons d'avoine avec du lait, 1 poignée de dattes</p>
-        <p><strong>Déjeuner :</strong> 150g de dinde, 100g de lentilles, 100g de tomates</p>
-        <p><strong>Collation :</strong> 1 orange, 10 noix</p>
-        <h3>Mercredi</h3>
-        <p><strong>Petit-déjeuner :</strong> 2 tranches de pain complet, 2 cuillères à soupe de beurre de cacahuète, 1 banane</p>
-        <p><strong>Déjeuner :</strong> 150g de bœuf maigre, 100g de riz basmati, 100g de courgettes</p>
-        <p><strong>Collation :</strong> 1 poire, 10 noisettes</p>
-        <h3>Jeudi</h3>
-        <p><strong>Petit-déjeuner :</strong> 1 smoothie (banane, épinards, lait, protéines en poudre)</p>
-        <p><strong>Déjeuner :</strong> 150g de poulet, 100g de pois chiches, 100g de tomates cerises</p>
-        <p><strong>Collation :</strong> 1 pêche, 10 amandes</p>
-        <h3>Vendredi</h3>
-        <p><strong>Petit-déjeuner :</strong> 2 œufs, 1 tranche de pain complet, 1 avocat</p>
-        <p><strong>Déjeuner :</strong> 150g de dinde, 100g de lentilles, 100g de courgettes</p>
-        <p><strong>Collation :</strong> 1 pomme, 10 noix</p>
-        <h3>Samedi</h3>
-        <p><strong>Petit-déjeuner :</strong> 1 bol de flocons d'avoine avec du lait, 1 poignée de dattes</p>
-        <p><strong>Déjeuner :</strong> 150g de bœuf maigre, 100g de riz basmati, 100g de carottes râpées</p>
-        <p><strong>Collation :</strong> 1 orange, 10 amandes</p>
-        <h3>Dimanche</h3>
-        <p><strong>Petit-déjeuner :</strong> 2 tranches de pain complet, 2 cuillères à soupe de beurre de cacahuète, 1 banane</p>
-        <p><strong>Déjeuner :</strong> 150g de poulet, 100g de pois chiches, 100g de tomates cerises</p>
-        <p><strong>Collation :</strong> 1 pêche, 10 noisettes</p>
-    `;
-    document.getElementById('nutritionPlan').innerHTML = nutritionPlan;
-}
-
-// Fonction pour démarrer le chronomètre de repos
 let restTimer;
 let restTime = 60; // Temps de repos en secondes
 
 function startRestTimer() {
     restTime = 60; // Réinitialiser le temps de repos
-    document.getElementById('startRestTimer').disabled = true;
+    const restTimerDisplay = document.createElement('p');
+    restTimerDisplay.id = 'restTimerDisplay';
+    restTimerDisplay.innerText = `Temps de repos: ${restTime}s`;
+    document.body.appendChild(restTimerDisplay);
+
     restTimer = setInterval(updateRestTimer, 1000);
 }
 
 function updateRestTimer() {
+    const restTimerDisplay = document.getElementById('restTimerDisplay');
     if (restTime <= 0) {
         clearInterval(restTimer);
-        document.getElementById('restTimerDisplay').innerText = "Temps de repos terminé!";
-        document.getElementById('startRestTimer').disabled = false;
+        restTimerDisplay.innerText = "Temps de repos terminé!";
     } else {
         restTime--;
-        document.getElementById('restTimerDisplay').innerText = `Temps de repos: ${restTime}s`;
+        restTimerDisplay.innerText = `Temps de repos: ${restTime}s`;
     }
 }
 
-// Appel des fonctions pour afficher les plans au chargement de la page
-window.onload = function() {
-    displayWorkoutPlan();
-    displayNutritionPlan();
-};
+// Initialisation
+document.addEventListener('DOMContentLoaded', () => {
+    updateCalendar();
+    showSection('dashboard');
+});
