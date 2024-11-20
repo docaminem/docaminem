@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application de Perte de Poids</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Application de Perte de Poids</h1>
+        <div class="calculator">
+            <h2>Calculateur de Calories</h2>
+            <label for="weight">Poids actuel (kg): </label>
+            <input type="number" id="weight" value="95">
+            <button onclick="calculateCalories()">Calculer</button>
+            <p id="caloriesResult"></p>
+        </div>
+        <div class="workout">
+            <h2>Programme de Musculation</h2>
+            <div id="workoutPlan"></div>
+        </div>
+        <div class="nutrition">
+            <h2>Programme de Nutrition</h2>
+            <div id="nutritionPlan"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
