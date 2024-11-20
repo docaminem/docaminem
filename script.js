@@ -11,33 +11,27 @@ function calculateCalories() {
 function displayWorkoutPlan() {
     const workoutPlan = `
         <h3>Lundi (Poitrine et Triceps)</h3>
-        <ul>
-            <li>Développé couché : 4 séries de 8-12 répétitions</li>
-            <li>Écarté couché : 3 séries de 10-12 répétitions</li>
-            <li>Pompes : 3 séries de 10-15 répétitions</li>
-            <li>Dips : 3 séries de 10-15 répétitions</li>
-            <li>Extension des triceps : 3 séries de 10-12 répétitions</li>
-        </ul>
+        <div class="exercise"><input type="checkbox" id="ex1"> Développé couché : 4 séries de 8-12 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex2"> Écarté couché : 3 séries de 10-12 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex3"> Pompes : 3 séries de 10-15 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex4"> Dips : 3 séries de 10-15 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex5"> Extension des triceps : 3 séries de 10-12 répétitions</div>
         <h3>Mercredi (Dos et Biceps)</h3>
-        <ul>
-            <li>Tirage horizontal : 4 séries de 8-12 répétitions</li>
-            <li>Tirage vertical : 3 séries de 10-12 répétitions</li>
-            <li>Rameur : 3 séries de 10-12 répétitions</li>
-            <li>Curl biceps : 3 séries de 10-12 répétitions</li>
-            <li>Curl marteau : 3 séries de 10-12 répétitions</li>
-        </ul>
+        <div class="exercise"><input type="checkbox" id="ex6"> Tirage horizontal : 4 séries de 8-12 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex7"> Tirage vertical : 3 séries de 10-12 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex8"> Rameur : 3 séries de 10-12 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex9"> Curl biceps : 3 séries de 10-12 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex10"> Curl marteau : 3 séries de 10-12 répétitions</div>
         <h3>Vendredi (Épaules et Abdominaux)</h3>
-        <ul>
-            <li>Développé militaire : 4 séries de 8-12 répétitions</li>
-            <li>Élévations latérales : 3 séries de 10-12 répétitions</li>
-            <li>Élévations frontales : 3 séries de 10-12 répétitions</li>
-            <li>Élévations arrière : 3 séries de 10-12 répétitions</li>
-            <li>Shrugs : 3 séries de 10-12 répétitions</li>
-            <li>Crunch : 3 séries de 15-20 répétitions</li>
-            <li>Planche : 3 séries de 30-60 secondes</li>
-            <li>Leg raises : 3 séries de 15-20 répétitions</li>
-            <li>Russian twists : 3 séries de 15-20 répétitions</li>
-        </ul>
+        <div class="exercise"><input type="checkbox" id="ex11"> Développé militaire : 4 séries de 8-12 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex12"> Élévations latérales : 3 séries de 10-12 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex13"> Élévations frontales : 3 séries de 10-12 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex14"> Élévations arrière : 3 séries de 10-12 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex15"> Shrugs : 3 séries de 10-12 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex16"> Crunch : 3 séries de 15-20 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex17"> Planche : 3 séries de 30-60 secondes</div>
+        <div class="exercise"><input type="checkbox" id="ex18"> Leg raises : 3 séries de 15-20 répétitions</div>
+        <div class="exercise"><input type="checkbox" id="ex19"> Russian twists : 3 séries de 15-20 répétitions</div>
     `;
     document.getElementById('workoutPlan').innerHTML = workoutPlan;
 }
@@ -75,6 +69,27 @@ function displayNutritionPlan() {
         <p><strong>Collation :</strong> 1 pêche, 10 noisettes</p>
     `;
     document.getElementById('nutritionPlan').innerHTML = nutritionPlan;
+}
+
+// Fonction pour démarrer le chronomètre de repos
+let restTimer;
+let restTime = 60; // Temps de repos en secondes
+
+function startRestTimer() {
+    restTime = 60; // Réinitialiser le temps de repos
+    document.getElementById('startRestTimer').disabled = true;
+    restTimer = setInterval(updateRestTimer, 1000);
+}
+
+function updateRestTimer() {
+    if (restTime <= 0) {
+        clearInterval(restTimer);
+        document.getElementById('restTimerDisplay').innerText = "Temps de repos terminé!";
+        document.getElementById('startRestTimer').disabled = false;
+    } else {
+        restTime--;
+        document.getElementById('restTimerDisplay').innerText = `Temps de repos: ${restTime}s`;
+    }
 }
 
 // Appel des fonctions pour afficher les plans au chargement de la page
