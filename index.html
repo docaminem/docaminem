@@ -18,44 +18,48 @@
         </header>
         <main>
             <section id="dashboard" class="section active">
-                <h2>Tableau de bord</h2>
                 <div class="calendar">
+                    <!-- Calendrier ici -->
                     <div class="calendar-header">
                         <button onclick="changeMonth(-1)">&lt;</button>
-                        <h3 id="current-month-year">Novembre 2024</h3>
+                        <h2 id="current-month-year">Novembre 2024</h2>
                         <button onclick="changeMonth(1)">&gt;</button>
                     </div>
-                    <div class="calendar-body" id="calendar-body">
-                        <!-- Calendar days will be dynamically inserted here -->
+                    <div class="calendar-body">
+                        <!-- Jours du calendrier ici -->
                     </div>
-                </div>
-                <div class="weight-tracker">
-                    <h3>Mon poids</h3>
-                    <p>Poids actuel: <span id="current-weight">92</span> kg</p>
-                    <button onclick="adjustWeight(-1)">-1 kg</button>
-                    <button onclick="adjustWeight(1)">+1 kg</button>
                 </div>
                 <div class="recommendations">
                     <h3>Recommandations</h3>
                     <p>Les recommandations pour vos entraînements seront affichées ici.</p>
                 </div>
+                <div class="weight-tracker">
+                    <h3>Mon poids</h3>
+                    <p>Poids actuel: <span id="current-weight">92 kg</span></p>
+                    <div class="weight-controls">
+                        <button onclick="adjustWeight(-1)">-1 kg</button>
+                        <button onclick="adjustWeight(1)">+1 kg</button>
+                    </div>
+                </div>
             </section>
             <section id="workouts" class="section">
-                <h2>Jours d'entraînement</h2>
-                <div id="workout-list">
-                    <!-- Workout list will be dynamically inserted here -->
+                <div class="workout-header">
+                    <h2>Jours d'entraînement</h2>
+                    <p>Votre liste d'exercices est vide. Commencez votre entraînement en ajoutant une nouvelle journée d'entraînement.</p>
                 </div>
-                <button id="startRestTimer" onclick="startRestTimer()">Démarrer le chrono de repos</button>
-                <p id="restTimerDisplay">Temps de repos: 0s</p>
+                <div class="workout-list">
+                    <!-- Liste des exercices ici -->
+                </div>
+                <button class="add-button" onclick="addWorkout()">+</button>
             </section>
             <section id="nutrition" class="section">
-                <h2>Alimentation</h2>
-                <div class="nutrition-plan">
-                    <h3>Lundi</h3>
-                    <p><strong>Petit-déjeuner :</strong> 2 œufs, 1 tranche de pain complet, 1 banane, 1 yaourt nature</p>
-                    <p><strong>Déjeuner :</strong> 150g de poulet grillé, 100g de couscous, 100g de carottes râpées, 1 cuillère à soupe d'huile d'olive</p>
-                    <p><strong>Collation :</strong> 1 pomme, 10 amandes</p>
-                    <!-- Add more days here -->
+                <h2>Consommation de calories, kcal</h2>
+                <div class="calorie-chart">
+                    <!-- Graphique des calories ici -->
+                </div>
+                <div class="analysis-buttons">
+                    <button class="analysis-button">OUVRIR L'ANALYSE</button>
+                    <button class="analysis-button">MES MESURES</button>
                 </div>
             </section>
         </main>
