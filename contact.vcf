@@ -1,6 +1,6 @@
 BEGIN:VCARD
 VERSION:3.0
-N:Khadiri;Dr. Amine;;;
+N:KHADIRI;Dr. Amine;;;
 FN:Dr Amine Khadiri
 ORG:Cabinet de Cardiologie
 TITLE:Cardiologue
@@ -9,6 +9,7 @@ TEL;TYPE=CELL,VOICE:0645863586
 EMAIL:dr.khadiriamine@gmail.com
 ADR;TYPE=WORK:;;119, Bd Moulay Driss 1er, Etage 5, Porte 9;Casablanca;;20000;Maroc
 URL:https://drkhadiriamine.carrd.co
+PHOTO;VALUE=URI:https://raw.githubusercontent.com/docaminem/docaminem/main/photo.jpg
 ITEM1.URL;TYPE=WHATSAPP:https://wa.me/212645863586
 ITEM1.X-ABLabel:WhatsApp
 END:VCARD
